@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 #######################################################################
-###NESTA SESSÃO FOI FEITA A FILTRAGEM DE UMA TURMA DE CALOUROS#########
+###NESTA FUNÇÃO FOI FEITA A FILTRAGEM DE UMA TURMA DE CALOUROS#########
 def calouros(Eletrica):
     Calouros = Eletrica[Eletrica.nome_disciplina == "FISICA EXPERIMENTAL I"] 
     Calouros1 = Eletrica[Eletrica.nome_disciplina == "MATEMATICA PARA ENGENHARIA I"]
@@ -27,13 +27,17 @@ def calouros(Eletrica):
 #######################################################################
 
 ###############################################
-#Nessa sessão, foi recolhido o dataset com o nome de todas as turmas e seus IDs.
+#Nessa função, foi recolhido o dataset com o nome de todas as turmas e seus IDs.
 #Seus valores foram alocados para um novo Dataset (17135x2) e salvo em csv.
-#Turmas_Temp = pd.read_csv("Data/Turmas/componentes-curriculares-presenciais.csv", error_bad_lines= False, delimiter = ";")
-#Turmas_Temp = Turmas_Temp[Turmas_Temp.nivel == "G"] 
-#Turmas_Fixo = Turmas_Temp[['id_componente', 'nome']].copy()
-#Turmas_Fixo.to_csv("Turmas_Fixo.csv")
+
+def Nome_das_Disciplinas():
+    Turmas_Temp = pd.read_csv("Data/Turmas/componentes-curriculares-presenciais.csv", error_bad_lines= False, delimiter = ";")
+    Turmas_Temp = Turmas_Temp[Turmas_Temp.nivel == "G"] 
+    Turmas_Fixo = Turmas_Temp[['id_componente', 'nome']].copy()
+    Turmas_Fixo.to_csv("Turmas_Fixo.csv")
 ###############################################
+    
+    
 #Importando a tabela que relaciona um ID a um nome de matéria
 Turmas_Fixo = pd.read_csv("Data/Turmas_Fixo.csv", error_bad_lines= False, encoding = "ISO-8859-1")
 Turmas_Fixo.drop('Unnamed: 0', axis= 1, inplace = True)
