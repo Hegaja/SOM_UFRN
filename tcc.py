@@ -3,6 +3,29 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
+#######################################################################
+###NESTA SESSÃO FOI FEITA A FILTRAGEM DE UMA TURMA DE CALOUROS#########
+def calouros(Eletrica):
+    Calouros = Eletrica[Eletrica.nome_disciplina == "FISICA EXPERIMENTAL I"] 
+    Calouros1 = Eletrica[Eletrica.nome_disciplina == "MATEMATICA PARA ENGENHARIA I"]
+    Calouros2 = Eletrica[Eletrica.nome_disciplina == "ALGORITMOS E LOGICA DE PROGRAMACAO"]
+    Calouros3 = Eletrica[Eletrica.nome_disciplina == "MECANICA CLASSICA"]
+    
+    Calouros4 = Calouros1[Calouros1['discente'].isin(Calouros['discente'])]
+    Calouros5 = Calouros4[Calouros4['discente'].isin(Calouros2['discente'])]
+    
+    Turma1 = Calouros5[Calouros5['discente'].isin(Calouros3['discente'])]
+    Turma1 = Turma1['discente']
+    
+    #Limpesa de várias variáveis temporárias
+    del Calouros, Calouros1, Calouros2, Calouros3, Calouros4, Calouros5
+    
+    #Criação do CSV com a matrícula dos alunos de determinado semeste
+    Turma1.to_csv("Data/Turma_Final/OMG.csv", header = 'discente')
+    print("Arquivo criado!")
+#######################################################################
+#######################################################################
+
 ###############################################
 #Nessa sessão, foi recolhido o dataset com o nome de todas as turmas e seus IDs.
 #Seus valores foram alocados para um novo Dataset (17135x2) e salvo em csv.
@@ -69,36 +92,14 @@ Eletrica.dropna(inplace = True, axis = 1)
 #################################################
 #################################################
 
-
-
 #Adicionando o nome, ano e período das disciplinas a turma
 Eletrica["nome_disciplina"] = Eletrica['id_turma'].map(Dicionario_Turmas_Semestre)
 Eletrica["ano"] = Eletrica['id_turma'].map(Dicionario_Ano_Semestre)
 Eletrica["periodo"] = Eletrica['id_turma'].map(Dicionario_Periodo_Semestre)
-#Eletrica.drop('id_turma',axis = 1, inplace = True)
 
-#######################################################################
-###NESTA SESSÃO FOI FEITA A FILTRAGEM DE UMA TURMA DE CALOUROS#########
-#Calouros = Eletrica[Eletrica.nome_disciplina == "FISICA EXPERIMENTAL I"] 
-#Calouros1 = Eletrica[Eletrica.nome_disciplina == "MATEMATICA PARA ENGENHARIA I"]
-#Calouros2 = Eletrica[Eletrica.nome_disciplina == "ALGORITMOS E LOGICA DE PROGRAMACAO"]
-#Calouros3 = Eletrica[Eletrica.nome_disciplina == "MECANICA CLASSICA"]
-#
-#Calouros4 = Calouros1[Calouros1['discente'].isin(Calouros['discente'])]
-#Calouros5 = Calouros4[Calouros4['discente'].isin(Calouros2['discente'])]
-#
-#Turma1 = Calouros5[Calouros5['discente'].isin(Calouros3['discente'])]
-#Turma1 = Turma1['discente']
-#
-##Limpesa de várias variáveis temporárias
-#del Calouros, Calouros1, Calouros2, Calouros3, Calouros4, Calouros5
-#
-##Criação do CSV com a matrícula dos alunos de determinado semeste
-#Turma1.to_csv("Data/Turma_Final/Matricula_turma_de_2011.1.csv", header = 'discente')
-#######################################################################
-#######################################################################
 
-# Pega as infos e cria o dataset praquele semestre
+
+# Pega as infos e cria o dataset para o semestre
 Turma1 = pd.read_csv("Data/Turma_Final/Matricula_turma_de_2011.1.csv")
 Turma1.drop("Unnamed: 0", axis = 1, inplace = True) 
 Semestre = pd.read_csv("Data/Turma_Final/Turma_de_2011.1.csv", error_bad_lines= False, encoding = "ISO-8859-1")
@@ -126,8 +127,6 @@ Semestre.to_csv("Data/Turma_Final/Turma_de_2011.1.csv", header = ['ano',
 'periodo',
 'reposicao'])
 ################ Á R E A   D E    T E S T E S #########################
-#Filipe = Ingressantes[Ingressantes.discente == '92120f93abe183ed3a790b9e01bab379']
-#del Filipe
 
 
 #Semestre.to_csv("Data/Turma_Final/Turma_de_2010.1.csv", header = ['ano','descricao','discente','media_final','nome_disciplina', 'numero_total_faltas','periodo','reposicao'])
@@ -135,9 +134,4 @@ Semestre.to_csv("Data/Turma_Final/Turma_de_2011.1.csv", header = ['ano',
 
 #######################################################################
 
-
-
-#Brasil digital
-
-#Dkiscovering Knowlege in data
 
